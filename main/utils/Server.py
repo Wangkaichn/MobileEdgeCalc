@@ -37,4 +37,4 @@ def main(startInfo='startInfo', host='127.0.0.1', port=8000):
   MainServer(handleServer)
   StopServer(handleServer)
 
-main()
+main('树莓派', '192.168.1.104', 8000)
