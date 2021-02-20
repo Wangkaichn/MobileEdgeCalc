@@ -35,4 +35,4 @@ def main(startInfo='startInfo', host='127.0.0.1', port=8000):
   MainClient(client)
   StopClient(client)
 
-main()
+main('树莓派', '192.168.1.104', 8000)
