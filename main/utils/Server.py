@@ -18,14 +18,15 @@ def LinkServer(handleServer, host, port):
 
 def MainServer(handleServer):
   client, addr = handleServer.accept()
-  print('当前链接信息', client, addr)
+  print('当前链接信息', addr)
   while True:
     data = client.recv(MaxBytes)
     if not data:
-      print('断开链接', client, addr)
+      print('断开链接', addr)
       break
-    localTime = time.asctime( time.localtime(time.time()))
-    print(localTime, client, addr, data)
+    localTime = time.asctime(time.localtime(time.time()))
+    data = data.decode()
+    print(localTime, addr, data)
 
 def StopServer(handleServer, stopInfo='stopInfo'):
   handleServer.close()
