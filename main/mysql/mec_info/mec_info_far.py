@@ -31,11 +31,12 @@ def MainServer(handleServer):
       print('断开链接', addr)
       break
     data = data.decode()
-    if data.startswith('sql:')
+    if data.startswith('sql:'):
       sql = data.split('sql:')
       a = db_mec_info.read(sql)
       localTime = time.asctime(time.localtime(time.time()))
       print(localTime, addr, data, a)
+    print(localTime, addr, data, '无 sql')
 
 def StopServer(handleServer, stopInfo='stopInfo'):
   handleServer.close()
