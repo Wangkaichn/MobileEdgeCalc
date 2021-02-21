@@ -2,12 +2,12 @@ import pymysql
 
 HOST = 'localhost'
 PORT = 3306
-DATABASE = 'ylwawj'
+DATABASE = 'mec'
 USER = 'root'
 PASSWORD = 'Wo123456'
 
 def get_connection():
-  conn = pymysql.connect(host=host, port=port, db=db, user=user, password=password)
+  conn = pymysql.connect(host=HOST, port=PORT, db=DATABASE, user=USER, password=PASSWORD)
   return conn
 
 def check_it():
