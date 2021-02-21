@@ -37,7 +37,8 @@ def MainServer(handleServer):
       print('sql: ', sql)
       a = db_mec_info.read(sql)
       print(localTime, addr, data, a)
-    print(localTime, addr, data, '无 sql')
+    else:
+      print(localTime, addr, data, '无 sql')
 
 def StopServer(handleServer, stopInfo='stopInfo'):
   handleServer.close()
