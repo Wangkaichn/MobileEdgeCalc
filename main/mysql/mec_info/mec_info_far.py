@@ -49,4 +49,4 @@ def main(host='127.0.0.1', port=8000, startInfo='startInfo'):
   MainServer(handleServer)
   StopServer(handleServer)
 
-main()
+main('192.168.1.104')
