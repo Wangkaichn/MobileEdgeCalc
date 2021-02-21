@@ -36,5 +36,5 @@ def read(sql):
   close_db(db)
   return res
 
-a = read('select * from mec_info')
-print(a)
+# a = read('select * from mec_info')
+# print(a)
