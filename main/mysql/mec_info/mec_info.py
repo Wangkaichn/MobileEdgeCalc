@@ -7,6 +7,8 @@
 #  *****  cf VARCHAR(20) NOT NULL         *****
 #  *****  status INT NOT NULL             *****
 
+import pymysql
+
 HOST = 'localhost'
 PORT = 3306
 DATABASE = 'mec'
