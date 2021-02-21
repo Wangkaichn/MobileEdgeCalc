@@ -20,24 +20,24 @@ def CreatServer(startInfo):
 
 def LinkServer(handleServer, host, port):
   handleServer.bind((host, port))
-  handleServer.listen(1)
+  handleServer.listen()
 
 def MainServer(handleServer):
   client, addr = handleServer.accept()
   print('当前链接信息', addr)
   while True:
     data = client.recv(MaxBytes)
-    if not data:
-      print('断开链接', addr)
-      break
+    # if not data:
+    #   print('断开链接', addr)
+    #   break
     data = data.decode()
     localTime = time.asctime(time.localtime(time.time()))
     if data.startswith('sql:'):
       sql = data.split('sql:')[1]
       print('sql: ', sql)
       try:
-        a = db_mec_info.read(sql)
-        print(localTime, addr, data, a)
+        res = db_mec_info.read(sql)
+        print(localTime, addr, data, res)
       except:
         print('错误sql: ', sql)
     else:
