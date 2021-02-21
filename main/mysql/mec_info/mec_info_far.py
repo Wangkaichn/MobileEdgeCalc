@@ -33,6 +33,7 @@ def MainServer(handleServer):
     data = data.decode()
     if data.startswith('sql:'):
       sql = data.split('sql:')
+      print('sql: ', sql)
       a = db_mec_info.read(sql)
       localTime = time.asctime(time.localtime(time.time()))
       print(localTime, addr, data, a)
@@ -48,4 +49,4 @@ def main(host='127.0.0.1', port=8000, startInfo='startInfo'):
   MainServer(handleServer)
   StopServer(handleServer)
 
-main('192.168.1.104')
+main()
