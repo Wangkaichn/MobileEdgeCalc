@@ -17,6 +17,7 @@ def LinkServer(handleServer, host, port):
 
 def MainServer(handleServer):
   client, addr = handleServer.accept()
+  print('addr: ', addr)
   while True:
     data = client.recv(MaxBytes)
     if not data:
