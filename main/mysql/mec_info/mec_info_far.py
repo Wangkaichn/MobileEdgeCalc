@@ -35,8 +35,11 @@ def MainServer(handleServer):
     if data.startswith('sql:'):
       sql = data.split('sql:')[1]
       print('sql: ', sql)
-      a = db_mec_info.read(sql)
-      print(localTime, addr, data, a)
+      try:
+        a = db_mec_info.read(sql)
+        print(localTime, addr, data, a)
+      except:
+        print('错误sql: ', sql)
     else:
       print(localTime, addr, data, '无 sql')
 
