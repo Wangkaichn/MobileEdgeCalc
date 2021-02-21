@@ -9,7 +9,7 @@
 
 import pymysql
 
-HOST = 'localhost'
+HOST = '192.168.1.104'
 PORT = 3306
 DATABASE = 'mec'
 USER = 'root'
@@ -19,9 +19,10 @@ def get_db():
   db = pymysql.connect(
     host = HOST,
     port = PORT,
-    db = DATABASE,
     user = USER,
-    password = PASSWORD
+    passwd = PASSWORD,
+    db = DATABASE,
+    charset = 'utf8'
   )
   return db
 
@@ -30,11 +31,12 @@ def close_db(db):
 
 def read(sql):
   db = get_db()
+  print('--------------------')
   cursor = db.cursor()
   cursor.execute(sql)
   res = cursor.fetchall()
   close_db(db)
   return res
 
-# a = read('select * from mec_info')
-# print(a)
+a = read('select * from mec_info')
+print(a)

@@ -7,7 +7,7 @@
 #  *****  cf VARCHAR(20) NOT NULL         *****
 #  *****  status INT NOT NULL             *****
 
-import socket, time, mec_info as db_mec_info
+import socket, time, local as db_mec_info
 
 TIMEOUT = 120
 MaxBytes = 1024 * 1024
@@ -27,9 +27,9 @@ def MainServer(handleServer):
   print('当前链接信息', addr)
   while True:
     data = client.recv(MaxBytes)
-    # if not data:
-    #   print('断开链接', addr)
-    #   break
+    if not data:
+      print('断开链接', addr)
+      break
     data = data.decode()
     localTime = time.asctime(time.localtime(time.time()))
     if data.startswith('sql:'):
