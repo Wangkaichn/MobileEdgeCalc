@@ -31,6 +31,7 @@ def close_db(db):
 def read(sql):
   db = get_db()
   cursor = db.cursor()
+  cursor.execute(sql)
   res = cursor.fetchall()
   close_db(db)
   return res
