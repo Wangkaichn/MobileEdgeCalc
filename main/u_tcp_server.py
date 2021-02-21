@@ -13,7 +13,8 @@ def CreatServer():
 
 def LinkServer(handleServer, host, port):
   handleServer.bind((host, port))
-  handleServer.listen(1)
+  handleServer.listen(100)
+  print('服务器正在监听: ', port, ' 端口......')
 
 def MainServer(handleServer):
   client, addr = handleServer.accept()
