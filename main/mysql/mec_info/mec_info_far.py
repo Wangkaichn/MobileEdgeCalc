@@ -32,7 +32,7 @@ def MainServer(handleServer):
       break
     data = data.decode()
     if data.startswith('sql:'):
-      sql = data.split('sql:')
+      sql = data.split('sql:')[1]
       print('sql: ', sql)
       a = db_mec_info.read(sql)
       localTime = time.asctime(time.localtime(time.time()))
