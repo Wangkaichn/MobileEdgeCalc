@@ -19,13 +19,14 @@ def LinkServer(handleServer, host, port):
 def MainServer(handleServer):
   client, addr = handleServer.accept()
   print('addr: ', addr)
+  index = 0
   while True:
     data = client.recv(MaxBytes)
     if not data:
       break
-    localTime = time.asctime(time.localtime(time.time()))
     data = data.decode()
-    client.send('Server 收到: %s' % repr(localTime))
+    index += 1
+    client.send('Server 收到: %d 个包, 当前: %s' % (index, data))
 
 def StopServer(handleServer):
   handleServer.close()
