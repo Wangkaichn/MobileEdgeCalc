@@ -25,8 +25,7 @@ def MainServer(handleServer):
       break
     localTime = time.asctime(time.localtime(time.time()))
     data = data.decode()
-    print(localTime, ': ', data)
-    client.send('收到: %s' % localTime)
+    client.send('Server 收到: %s' % repe(localTime))
 
 def StopServer(handleServer):
   handleServer.close()
