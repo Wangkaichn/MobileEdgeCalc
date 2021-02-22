@@ -35,3 +35,5 @@ def Test():
   LinkServer(client, '192.168.1.104', 8000)
   MainServer(client)
   StopServer(client)
+
+Test()
