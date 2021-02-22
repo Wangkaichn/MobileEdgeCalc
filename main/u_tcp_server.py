@@ -26,7 +26,8 @@ def MainServer(handleServer):
       break
     data = data.decode()
     index += 1
-    client.send('Server 收到: %d 个包, 当前: %s' % (index, data))
+    send_content = 'Server 收到: %d 个包, 当前: %s' % (index, data)
+    client.send(send_content.encode())
 
 def StopServer(handleServer):
   handleServer.close()
