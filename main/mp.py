@@ -10,13 +10,14 @@ Kccf_Scope_Of_MEC = [         # MEC Server 的时钟频率所有取值
   2.5 * math.pow(10, 6),
   3.0 * math.pow(10, 6),
 ]                             
-Min_Port_Of_MEC = 8000        # MEC Server 的最小 Port
+Min_Thread_ID_Of_MEC = 1000   # MEC Server 的最小 Port
 Host_Scope_Of_MEC = [         # MEC Server 的 Host 所有取值
   '192.168.1.104',
   '192.168.1.105',
   '192.168.1.106',
   '192.168.1.107',
 ]
+Port_Of_MEC = 8000            # MEC Server 的 Port
 
 def CreateSingleMECSercer():
   current_x = random.randint(0, Max_Point_X)
@@ -33,13 +34,12 @@ def CreateMultipleMECSercer(mec_count = 1):
     multiple_mec_server.append(single_mec_server)
   return multiple_mec_server
 
-def get_host_and_port_of_mec(current_mec_index, mec_total_count):
+def get_host_of_mec(current_mec_index, mec_total_count):
   allowed_host_count = len(Host_Scope_Of_MEC)
   interval = mec_total_count / allowed_host_count
   host_index = math.floor(current_mec_index / interval)
   host = repr(Host_Scope_Of_MEC[host_index])
-  port = int(Min_Port_Of_MEC + current_mec_index % interval)
-  return (host, port)
+  return host
 
 def SaveServerToDataBase(mec_arrow = []):
   mec_count = len(mec_arrow)
@@ -47,10 +47,12 @@ def SaveServerToDataBase(mec_arrow = []):
   for index in range(mec_count):
     current_mec = mec_arrow[index - 1]
     x, y, Kccf = current_mec
-    host, port = get_host_and_port_of_mec(index, mec_count)
+    host = get_host_of_mec(index, mec_count)
+    thread_id = Min_Thread_ID_Of_MEC + index
     sql = """INSERT INTO mec_info
-          (x, y, Kccf, status, host, port)
-          VALUES (%s, %s, %s, %d, %s, %s)""" % (x, y, Kccf, 0, host, port)
+            (x, y, Kccf, status, host, port, thread_id)
+            VALUES (%s, %s, %s, %d, %s, %s, 'thread_id_%s')
+          """ % (x, y, Kccf, 0, host, Port_Of_MEC, thread_id)
     mysql.insert(db, cursor, sql)
   mysql.close(db)
   print('已保存 MEC 服务器信息......')

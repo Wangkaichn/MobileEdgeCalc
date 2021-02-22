@@ -22,9 +22,12 @@ def get_handle():
 def close(db):
   db.close()
 
-def read(cursor, sql):
+def read(cursor, sql, fetch_one = False):
   cursor.execute(sql)
-  res = cursor.fetchall()
+  if not fetch_one:
+    res = cursor.fetchall()
+  else:
+    res = cursor.fetchone()
   return res
 
 def insert(db, cursor, sql):  

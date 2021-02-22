@@ -3,10 +3,8 @@
 
 import socket, time
 
-TIMEOUT = 10
-MaxBytes = 1024 * 1024
-
 def CreatClient():
+  TIMEOUT = 10
   client = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
   client.settimeout(TIMEOUT)
   return client
@@ -18,6 +16,16 @@ def LinkServer(handleClient, host='127.0.0.1', port = 8000):
   handleClient.connect((host, port))
   print('链接完成: ', host, port)
 
+def SendToServer(handleClient, send_content):
+  if not send_content:
+    raise Exception('请检查发送给服务器的内容...')
+  handleClient.send(send_content.encode())
+
+def RecvFromServer(handleClient):
+  MaxBytes = 1024 * 1024
+  recv_content = handleClient.recv(MaxBytes).decode()
+  return recv_content
+  
 
 def MainClient(handleClient):
   while True:
