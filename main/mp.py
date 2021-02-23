@@ -1,7 +1,8 @@
 # mp: MEC Server Producer
 # 产生 MEC 服务器资源
 
-import math, random, mysql
+import math, random
+import u_mysql as Mysql
 
 Max_Point_X = 500             # MEC Server 的最大 X 值
 Max_Point_Y = 500             # MEC Server 的最大 Y 值
@@ -43,7 +44,7 @@ def get_host_of_mec(current_mec_index, mec_total_count):
 
 def SaveServerToDataBase(mec_arrow = []):
   mec_count = len(mec_arrow)
-  db, cursor = mysql.get_handle()
+  db, cursor = Mysql.get_handle()
   for index in range(mec_count):
     current_mec = mec_arrow[index - 1]
     x, y, Kccf = current_mec
@@ -53,7 +54,7 @@ def SaveServerToDataBase(mec_arrow = []):
             (x, y, Kccf, status, host, port, thread_id)
             VALUES (%s, %s, %s, %d, %s, %s, 'thread_id_%s')
           """ % (x, y, Kccf, 0, host, Port_Of_MEC, thread_id)
-    mysql.insert(db, cursor, sql)
-  mysql.close(db)
+    Mysql.execute_sql(db, cursor, sql)
+  Mysql.close(db)
   print('已保存 MEC 服务器信息......')
 

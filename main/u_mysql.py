@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import pymysql
 
 HOST = '192.168.1.104'
@@ -22,6 +24,10 @@ def get_handle():
 def close(db):
   db.close()
 
+def execute_sql(db, cursor, sql):
+  cursor.execute(sql)
+  db.commit()
+
 def read(cursor, sql, fetch_one = False):
   cursor.execute(sql)
   if not fetch_one:
@@ -29,10 +35,6 @@ def read(cursor, sql, fetch_one = False):
   else:
     res = cursor.fetchone()
   return res
-
-def insert(db, cursor, sql):  
-  cursor.execute(sql)
-  db.commit()
 
 def clean_table(db, cursor, table_name):
   sql = "DELETE FROM %s" % (table_name)

@@ -1,7 +1,10 @@
+# -*- coding: UTF-8 -*-
 # TP: Task Producer
 # 用户模拟移动端产生计算任务
 
-import math, random, mysql
+import math, random
+import u_time as Time
+import u_mysql as Mysql
 
 Max_Point_X = 500                           # 终端的最大 X 值
 Max_Point_Y = 500                           # 终端的最大 Y 值
@@ -23,7 +26,8 @@ def CreateSingleTask():
   current_Allowed_Delay_Time = Delay_Time_Scope_Of_Task[current_Allowed_Delay_Time_index]
   current_Rondom_Delay_Time = round((random.random() - 0.5) / 2, 3)
   current_Allowed_Delay_Time = current_Allowed_Delay_Time + current_Rondom_Delay_Time
-  return (current_x, current_y, current_Dccc, current_Dv, current_QoS, current_Allowed_Delay_Time)
+  current_create_time = Time.GetLocalTime()
+  return (current_x, current_y, current_Dccc, current_Dv, current_QoS, current_Allowed_Delay_Time, current_create_time)
 
 def get_QoS(task_arrow):
   return task_arrow[4]
@@ -38,12 +42,12 @@ def CreateMultipleTask(task_count = 1, sorted = True):
   return multiple_task
 
 def SaveTasksToDataBase(task_arrow = []):
-  db, cursor = mysql.get_handle()
+  db, cursor = Mysql.get_handle()
   for current_task in task_arrow:
     sql = """INSERT INTO task_info
-          (x, y, Dccc, Dv, QoS, MaxDelayTime)
-          VALUES (%s, %s, %s, %s, %d, %s)""" % current_task
-    mysql.insert(db, cursor, sql)
-  mysql.close(db)
+          (x, y, Dccc, Dv, QoS, max_delay_time, create_time)
+          VALUES (%s, %s, %s, %s, %d, %s, %s)""" % current_task
+    Mysql.execute_sql(db, cursor, sql)
+  Mysql.close(db)
   print('已保存任务信息......')
 
